@@ -1,26 +1,32 @@
 #include <iostream>
-#include <thread>
 #include <string>
 
+#ifdef _WIN32
 #include <winsock2.h>
-
+#else
+#endif
 
 #include "source/minHeapTimer.hpp"
 
 std::string getLogTime() {
+    char date[50] = {0};
+#ifdef _WIN32
     SYSTEMTIME st = {0};
     GetLocalTime(&st);
-    char date[50] = {0};
+
     sprintf(date, "%02d:%02d:%02d.%03d", st.wHour, st.wMinute, st.wSecond, st.wMilliseconds);
+#else
+#endif
     return date;
 }
 
 int main() {
+#ifdef _WIN32
     WORD wVersionRequested;
     WSADATA wsaData;
     wVersionRequested = MAKEWORD(2, 2);
     WSAStartup(wVersionRequested, &wsaData);
-
+#endif
     SOCKET _socket = socket(AF_INET, SOCK_STREAM, 0);
 
     minHeapTimer min_heap;

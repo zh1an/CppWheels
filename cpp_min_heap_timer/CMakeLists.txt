@@ -3,7 +3,9 @@ project(cpp_min_heap_timer)
 
 set(CMAKE_CXX_STANDARD 11)
 
-LINK_LIBRARIES(ws2_32)
+IF(WIN32)
+    LINK_LIBRARIES(ws2_32)
+ENDIF()
 
 add_executable(
         cpp_min_heap_timer
