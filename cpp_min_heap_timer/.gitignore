@@ -13,5 +13,6 @@ _deps
 .ideal/*.iml
 .idea/*.xml
 .idea/*
-cmake-build-debug/cpp_min_heap_timer.cbp
-cmake-build-debug/cpp_min_heap_timer.exe
+
+*.cbp
+*.exe
