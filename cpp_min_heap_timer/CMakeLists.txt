@@ -7,8 +7,8 @@ IF(WIN32)
     LINK_LIBRARIES(ws2_32)
 ENDIF()
 
-set(USE_MIN_HEAP_TIMER 1)
-set(USE_SORTED_TIMER 0)
+set(USE_MIN_HEAP_TIMER 0)
+set(USE_SORTED_TIMER 1)
 
 configure_file(
         "config.h.in"

@@ -10,9 +10,11 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 
-.ideal/*.iml
+.idea/*.iml
 .idea/*.xml
 .idea/*
 
 *.cbp
 *.exe
+
+cmake-build*/*
