@@ -1,3 +1,4 @@
+#if 1
 #include <iostream>
 #include <string>
 
@@ -6,7 +7,7 @@
 #else
 #endif
 
-#include "source/minHeapTimer.hpp"
+#include "source/timer.hpp"
 
 std::string getLogTime() {
     char date[50] = {0};
@@ -29,11 +30,11 @@ int main() {
 #endif
     SOCKET _socket = socket(AF_INET, SOCK_STREAM, 0);
 
-    minHeapTimer min_heap;
-
+    //minHeapTimer min_heap;
+    timer min_heap;
     min_heap.timerAdd(1000, [=] { std::cout << getLogTime() << ": this is callback_1" << std::endl; });
     min_heap.timerAdd(5000, [=] { std::cout << getLogTime() << ": this is callback_2" << std::endl; });
-    struct timeval el;
+    struct timeval el{0,0};
     while (1) {
         fd_set read_set;
         FD_ZERO(&read_set);
@@ -46,3 +47,4 @@ int main() {
 
     return 0;
 }
+#endif
