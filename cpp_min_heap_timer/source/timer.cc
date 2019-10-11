@@ -42,22 +42,19 @@ unsigned timer::timerAdd(int interval, ev_callback_t cb, int flag, int exe_num) 
 }
 
 bool timer::timerRemove(unsigned timer_id) {
-    auto iter = m_timer.begin();
-    for (; iter != m_timer.end();) {
-        if (timer_id == (*iter).timer_id) {
-            iter = m_timer.erase(iter);
+    bool re = false;
+    m_timer.erase(std::remove_if(m_timer.begin(), m_timer.end(),
+                                 [&](const ev_event_t &ev) {
+                                     return (re = (ev.timer_id == timer_id));
+                                 }), m_timer.end());
+    if (re) {
 #if USE_CPP_MIN_HEAP_TIMER
-            std::push_heap(m_timer.begin(), m_timer.end(), ev_cmp);
+        std::push_heap(m_timer.begin(), m_timer.end(), ev_cmp);
 #elif USE_CPP_SORTED_TIMER
-            std::sort(m_timer.begin(), m_timer.end(), ev_cmp);
+        std::sort(m_timer.begin(), m_timer.end(), ev_cmp);
 #endif
-            return true;
-        } else {
-            ++iter;
-        }
     }
-
-    return false;
+    return re;
 }
 
 int timer::timerProcess() {

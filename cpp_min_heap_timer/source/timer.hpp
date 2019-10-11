@@ -10,10 +10,10 @@
 #include "data.hpp"
 
 
-
 class timer {
 public:
     timer();
+
     virtual ~timer();
 
 public:
