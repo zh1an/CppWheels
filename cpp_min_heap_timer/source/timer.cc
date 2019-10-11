@@ -45,7 +45,7 @@ bool timer::timerRemove(unsigned timer_id) {
     bool re = false;
     m_timer.erase(std::remove_if(m_timer.begin(), m_timer.end(),
                                  [&](const ev_event_t &ev) {
-                                     return (re = (ev.timer_id == timer_id));
+                                     return ev.timer_id == timer_id ? re = true : false;
                                  }), m_timer.end());
     if (re) {
 #if USE_CPP_MIN_HEAP_TIMER
