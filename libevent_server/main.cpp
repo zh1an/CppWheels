@@ -149,9 +149,10 @@ conn_readcb(struct bufferevent *bev, void *user_data) {
         stream.Take();
         lastTell = stream.Tell();
 
-        LOG(INFO) << "json: " << m_buffer.substr(0, lastTell) << std::endl;
-
-        m_buffer.erase(0, lastTell);
+        auto _JSON = m_buffer.substr(0, lastTell);
+        LOG_IF_EVERY_N(INFO, _JSON.empty(), 1) << "JSON: " << _JSON << std::endl;
+        if (!_JSON.empty())
+            m_buffer.erase(0, lastTell);
     }
 
 
