@@ -32,6 +32,7 @@
 #include <glog/logging.h>
 
 #include <string>
+#include <memory>
 #include <event.h>
 
 
