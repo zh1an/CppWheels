@@ -55,8 +55,9 @@ main(int argc, char **argv)
 {
     google::InitGoogleLogging(argv[0]);
     google::InstallFailureSignalHandler();
-    FLAGS_log_dir = "./";
-    FLAGS_logtostderr = true;
+    FLAGS_log_dir = "~/";
+    FLAGS_max_log_size = 20;
+    FLAGS_logtostderr = false;
 
     struct event_base *base;
     struct evconnlistener *listener;
@@ -101,6 +102,8 @@ main(int argc, char **argv)
     evconnlistener_free(listener);
     event_free(signal_event);
     event_base_free(base);
+
+    google::ShutdownGoogleLogging();
 
     printf("done\n");
     return 0;
