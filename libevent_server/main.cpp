@@ -56,7 +56,7 @@ main(int argc, char **argv)
     google::InitGoogleLogging(argv[0]);
     google::InstallFailureSignalHandler();
     FLAGS_log_dir = "./";
-    FLAGS_logtostderr = false;
+    FLAGS_logtostderr = true;
 
     struct event_base *base;
     struct evconnlistener *listener;
@@ -120,10 +120,10 @@ listener_cb(struct evconnlistener *listener, evutil_socket_t fd,
         return;
     }
     bufferevent_setcb(bev, conn_readcb, NULL, conn_eventcb, NULL);
-    bufferevent_enable(bev, EV_WRITE);
-    bufferevent_disable(bev, EV_READ);
+    bufferevent_disable(bev, EV_WRITE);
+    bufferevent_enable(bev, EV_READ);
 
-    bufferevent_write(bev, MESSAGE, strlen(MESSAGE));
+    //bufferevent_write(bev, MESSAGE, strlen(MESSAGE));
 }
 
 static void
@@ -139,14 +139,14 @@ conn_readcb(struct bufferevent *bev, void *user_data) {
         auto p1 = std::make_shared<rapidjson::Document>();
         p1->ParseStream<rapidjson::kParseStopWhenDoneFlag>(stream);
         if (p1->HasParseError()) {
-            LOG(INFO) << "remainder string: " << m_buffer;
+            //LOG(INFO) << "remainder string: " << m_buffer;
             break;
         }
 
         stream.Take();
         lastTell = stream.Tell();
 
-        LOG(INFO) << "json: " << m_buffer.substr(0, lastTell);
+        LOG(INFO) << "json: " << m_buffer.substr(0, lastTell) << std::endl;
 
         m_buffer.erase(0, lastTell);
     }
