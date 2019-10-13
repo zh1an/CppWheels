@@ -150,7 +150,7 @@ conn_readcb(struct bufferevent *bev, void *user_data) {
         lastTell = stream.Tell();
 
         auto _JSON = m_buffer.substr(0, lastTell);
-        LOG_IF_EVERY_N(INFO, _JSON.empty(), 1) << "JSON: " << _JSON << std::endl;
+        LOG_IF_EVERY_N(INFO, !_JSON.empty(), 1) << "JSON: " << _JSON << std::endl;
         if (!_JSON.empty())
             m_buffer.erase(0, lastTell);
     }
